@@ -151,3 +151,44 @@ public class enimy : MonoBehaviour
     }
 }
 ```
+# ยิงปืน
+
+```
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Gun : MonoBehaviour
+{
+    public GameObject bullet;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
+
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        Gunker();
+    }
+
+    public void Gunker()
+    {
+        if (Input.GetKey("h"))
+        {
+            bullet = (GameObject)Instantiate(bulletPrefab,
+                new Vector3(bulletSpawn.position.x,
+                bulletSpawn.position.y + 1.5f, 
+                bulletSpawn.position.z),
+                bulletSpawn.rotation);
+
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 10;
+            Destroy(bullet, 2.0f);
+            return;
+
+        }
+    }
+}
+```
