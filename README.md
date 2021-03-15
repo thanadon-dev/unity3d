@@ -89,3 +89,65 @@ public class Rotate : MonoBehaviour
     }
 }
 ```
+
+# คะแนน
+```
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class score : MonoBehaviour
+{
+    public int score;
+    public Text ScoreText;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        score = 0;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "SCORE")
+        {
+            score++;
+            Debug.Log(score);
+            ScoreText.text = "SCORE = " + score;
+            Destroy(other.gameObject);
+        }
+    }
+}
+```
+
+# ศัครูเดินตาม
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class enimy : MonoBehaviour
+{
+    public Transform traget;
+    public float Movespeed;
+    public float weakup;
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        transform.LookAt(traget);
+        float dis = Vector3.Distance(traget.position, transform.position);
+        if (dis < weakup)
+        {
+            transform.Translate(Vector3.forward * Movespeed * Time.deltaTime);
+        }
+    }
+}
+```
