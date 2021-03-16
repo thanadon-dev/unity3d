@@ -1,159 +1,61 @@
 # unity3d
 ฝึกสร้างเกมจ้า
 
-# เดิน
-
-```
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class automove : MonoBehaviour
-{
-    public Transform Cameramove;
-    public float Movespeed;
-
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-        markControl();
-    }
-    //ควบคุมการเดินไปข้างหน้า
-    public void cameramove()
-    {
-        transform.position += Cameramove.forward * Movespeed * Time.deltaTime;
-    }
-
-    //การควบคุมทิศทาง 
-    public void markControl()
-    {
-        if (Input.GetKey("w"))
-        {
-            transform.position += Cameramove.forward * Movespeed * Time.deltaTime;
-        }
-        if (Input.GetKey("s"))
-        {
-            transform.position -= Cameramove.forward * Movespeed * Time.deltaTime;
-        }
-        if (Input.GetKey("d"))
-        {
-            transform.position += Cameramove.right * Movespeed * Time.deltaTime;
-        }
-        if (Input.GetKey("a"))
-        {
-            transform.position -= Cameramove.right * Movespeed * Time.deltaTime;
-        }
-    }
-
-}
-
-
-
-```
-
-# กล้อง & หมุน
-```
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Rotate : MonoBehaviour
-{
-    public Transform Movement;
-    public Vector3 offset;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        controlRotate();
-    }
-    public void controlRotate()
-    {
-        transform.position = Movement.position + offset;
-        if (Input.GetKey("q"))
-        {
-            transform.Rotate(Vector3.up * -90 * Time.deltaTime);
-        }
-        if (Input.GetKey("e"))
-        {
-            transform.Rotate(Vector3.up * 90 * Time.deltaTime);
-        }
-    }
-}
-```
-
-# คะแนน
-```
+# Countdown
+```c#
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-public class score : MonoBehaviour
+public class Countdown : MonoBehaviour
 {
-    public int score;
-    public Text ScoreText;
+    public float Ctd = 5f;
+    public Text textcountdown;
+    public Canvas GAMEOVER;
 
-    // Start is called before the first frame update
+
+
     void Start()
     {
-        score = 0;
+
     }
 
-    public void OnTriggerEnter(Collider other)
+    void Update()
     {
-        if(other.tag == "SCORE")
+
+        if (Ctd > 0)
         {
-            score++;
-            Debug.Log(score);
-            ScoreText.text = "SCORE = " + score;
-            Destroy(other.gameObject);
+            Ctd -= Time.deltaTime;
+            textcountdown.text = "" + Ctd.ToString("###");
+        }
+        else
+        {
+            GAMEOVER.enabled = true;
         }
     }
+
 }
 ```
-
-# ศัครูเดินตาม
-```
-using System.Collections;
+# Exit
+```c#
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class enimy : MonoBehaviour
+
+public class Exit : MonoBehaviour
 {
-    public Transform traget;
-    public float Movespeed;
-    public float weakup;
-    // Start is called before the first frame update
-    void Start()
+    public void Exiting()
     {
-
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        transform.LookAt(traget);
-        float dis = Vector3.Distance(traget.position, transform.position);
-        if (dis < weakup)
-        {
-            transform.Translate(Vector3.forward * Movespeed * Time.deltaTime);
-        }
+        Debug.Log("Exit");
+        Application.Quit();
     }
 }
 ```
-# ยิงปืน
-
-```
+# Gun
+```c#
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -188,6 +90,171 @@ public class Gun : MonoBehaviour
             Destroy(bullet, 2.0f);
             return;
 
+        }
+    }
+}
+```
+# Movement
+```c#
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Movement : MonoBehaviour
+{
+    public Transform Movement;
+    public float Movespeed;
+    // public Vector3 offset;
+
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        controlK();
+       // controlRotate();
+    }
+    public void controlK()
+    {
+        if (Input.GetKey("w"))
+        {
+            transform.position += Movement.forward * Movespeed * Time.deltaTime;
+        }
+
+        if (Input.GetKey("s"))
+        {
+            transform.position -= Movement.forward * Movespeed * Time.deltaTime;
+        }
+
+        if (Input.GetKey("d"))
+        {
+            transform.position += Movement.right * Movespeed * Time.deltaTime;
+        }
+
+        if (Input.GetKey("a"))
+        {
+            transform.position -= Movement.right * Movespeed * Time.deltaTime;
+        }
+
+        if (Input.GetKey("t"))
+        {
+            transform.Rotate(Vector3.up * -90 * Time.deltaTime);
+        }
+        if (Input.GetKey("y"))
+        {
+            transform.Rotate(Vector3.up * 90 * Time.deltaTime);
+        }
+    }
+}
+```
+# Rotate
+```c#
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Rotate : MonoBehaviour
+{
+    public Transform Movement;
+    public Vector3 offset;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        controlRotate();
+    }
+    public void controlRotate()
+    {
+        transform.position = Movement.position + offset;
+        if (Input.GetKey("q"))
+        {
+            transform.Rotate(Vector3.up * -90 * Time.deltaTime);
+        }
+        if (Input.GetKey("e"))
+        {
+            transform.Rotate(Vector3.up * 90 * Time.deltaTime);
+        }
+    }
+}
+```
+# Running
+```c#
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class runing : MonoBehaviour
+{
+    public Transform traget;
+    public float Movespeed;
+    public float weakup;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        transform.LookAt(traget);
+        float dis = Vector3.Distance(traget.position, transform.position);
+        if(dis< weakup)
+        {
+            transform.Translate(Vector3.forward * Movespeed * Time.deltaTime);
+        }
+    }
+}
+```
+# screen
+```c#
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class Scane : MonoBehaviour
+{
+    public void PlayGeam()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+}
+```
+# score
+```
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class SCORE : MonoBehaviour
+{
+    public int score;
+    public Text ScoreText;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        score = 0;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "SCORE")
+        {
+            score++;
+            Debug.Log(score);
+            ScoreText.text = "SCORE = " + score;
+            Destroy(other.gameObject);
         }
     }
 }
