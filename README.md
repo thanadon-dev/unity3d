@@ -229,7 +229,7 @@ public class Scane : MonoBehaviour
 }
 ```
 # score
-```
+```c#
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
