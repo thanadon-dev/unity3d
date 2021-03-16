@@ -1,5 +1,22 @@
-# unity3d
-ฝึกสร้างเกมจ้า
+===================
+คำสั่ง Unity3d เบื้องต้นจ้า
+
+* [(นับถอยหลัง)Countdown](#Countdown)
+
+* [(ออก)Exit](#Exit)
+
+* [(ปืน)Gun](#Gun)
+
+* [(การเคลื่อนที่)Movement](#Movement)
+
+* [(การหมุน)Rotate](#Rotate)
+
+* [(ศัตรู)Running](#Running)
+
+* [(เปลี่ยนหน้า)screen](#screen)
+
+* [(การเก็บคะแนน)score](#score)
+
 
 # Countdown
 ```c#
